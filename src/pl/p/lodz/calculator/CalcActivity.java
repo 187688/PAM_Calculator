@@ -9,11 +9,9 @@ import android.widget.TextView;
 
 public class CalcActivity extends Activity implements OnClickListener{
 	
-	private static final String DOT = ".";
-	
 	private double result = 0.0;
-	private String tempValue = "";
-	private Operator operator;
+	private CalcNumber tempValue = new CalcNumber("0");
+	private Operator operator = Operator.DEFAULT;
 	
 	TextView tempText;
 	TextView operatorText;
@@ -36,7 +34,6 @@ public class CalcActivity extends Activity implements OnClickListener{
         getMenuInflater().inflate(R.menu.calc, menu);
         return true;
     }
-
 
 	@Override
 	public void onClick(View v) {
@@ -76,7 +73,7 @@ public class CalcActivity extends Activity implements OnClickListener{
 			addToTempValue("9");
 			break;
 		case R.id.ButtonDot:
-			addToTempValue(DOT);
+			addToTempValue(CalcButtons.DOT);
 			break;
 			
 		case R.id.ButtonAC:
@@ -104,39 +101,42 @@ public class CalcActivity extends Activity implements OnClickListener{
 	
 	private void clear() {
 		setResult(0.0);
-		tempValue = "0";
-		operator = Operator.DEFAULT;
-		tempText.setText("0");
+		setTempText("0");
+		setOperator(Operator.DEFAULT);
 	}
 	
+	/**
+	 * Before setting new operator we must do operation with last operator
+	 * @param operator
+	 */
 	private void calculate(Operator operator) {
 		if (this.operator == Operator.DEFAULT) {
-			setResult(Double.parseDouble(tempValue));
-			setTempText("0");
-			this.operator = operator;
+			setResult(Double.parseDouble(tempValue.getValue()));
+			setOperator(operator);
 		} else if (Operator.EQUATION.equals(operator)) {
 			makeEquation();
 		} else {
 			makeOperation();
-			this.operator = operator;
+			setResult(result);
+			setOperator(operator);
 		}
+		setTempText("0");
 	}
 	
 	private void makeOperation() {
 		switch (operator) {
 		case ADD:
-			result += Double.parseDouble(tempValue);
+			result += Double.parseDouble(tempValue.getValue());
 			break;
 		case SUBTRACT:
-			result -= Double.parseDouble(tempValue);
+			result -= Double.parseDouble(tempValue.getValue());
 			break;
 		case MULTIPLY:
-			result *= Double.parseDouble(tempValue);
+			result *= Double.parseDouble(tempValue.getValue());
 			break;
 		case DIVIDE:
-			double val = Double.parseDouble(tempValue);
+			double val = Double.parseDouble(tempValue.getValue());
 			if (val == 0.0) { 
-				clear();
 				//TODO: Add alert
 				break;
 			} 
@@ -155,33 +155,39 @@ public class CalcActivity extends Activity implements OnClickListener{
 		setOperator(Operator.DEFAULT);
 	}
 
-
-	private void addToTempValue(String value) {
-		if (!canInputZeroNumber()) {
-			// There cannot be duplicated 0 on the beggining
+	private void addToTempValue(String sign) {
+		// There cannot be duplicated 0 on the beggining
+		if (tempValue.isZeroFirst() && "0".equals(sign)) {
 			return;
 		}
-		if (DOT.equals(value) && tempValue.contains(DOT)) {
-			// There cannot be double dots in number
+
+		// There cannot be double dots in number
+		if (CalcButtons.DOT.equals(sign) && tempValue.getValue().contains(CalcButtons.DOT)) {
 			return;
 		} 
-		if (DOT.equals(value) && tempValue.isEmpty()) {
-			// If we have empty string and we will put dot, first must be a 0
-			tempValue = "0.";
-			tempText.setText(tempValue);
+		
+		// If we have empty string and we will put dot, first must be a 0
+		if (CalcButtons.DOT.equals(sign) && tempValue.isZeroFirst()) {
+			setTempText("0.");
 			return;
 		}
-		tempValue += value;
-		tempText.setText(tempValue);
+		
+		// If we have 0 on the beggining and try to append number
+		if (tempValue.isZeroFirst() && tempValue.isNegative()) {
+			setTempText("-" + sign);
+			return;
+		} else if (tempValue.isZeroFirst() && !tempValue.isNegative()) {
+			setTempText(sign);
+			return;
+		}
+		
+		String appendix = tempValue.getValue();
+		setTempText(appendix += sign);
 	}
 	
-	private boolean canInputZeroNumber() {
-		if (tempValue.getBytes().length <= 0) {
-			return true;
-		}
-		return !(tempValue.getBytes()[0] == '0') &&
-				!(tempValue.getBytes()[0] == '-' && tempValue.getBytes()[1] == '0');
-	}
+	/*
+	 * SETTERS TO FIELDS AND VIEWS 
+	 */
 	
     private void setResult(double value) {
     	result = value;
@@ -194,7 +200,7 @@ public class CalcActivity extends Activity implements OnClickListener{
     }
     
     private void setTempText(String value) {
-    	tempValue = value;
+    	tempValue.setValue(value);
 		tempText.setText(value);
     }
 }

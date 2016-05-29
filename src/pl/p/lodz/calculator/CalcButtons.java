@@ -5,6 +5,8 @@ import android.widget.Button;
 
 public class CalcButtons {
 
+	public static final String DOT = ".";
+	
 	public static Button btn1; 
 	public static Button btn2;
 	public static Button btn3;

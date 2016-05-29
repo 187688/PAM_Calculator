@@ -200,7 +200,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/tempText"
         android:layout_marginTop="17dp"
-        android:text="0"
+        android:text="@string/empty"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
