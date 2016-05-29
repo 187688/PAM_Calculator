@@ -176,6 +176,9 @@ public class CalcActivity extends Activity implements OnClickListener{
 	}
 	
 	private boolean canInputZeroNumber() {
+		if (tempValue.getBytes().length <= 0) {
+			return true;
+		}
 		return !(tempValue.getBytes()[0] == '0') &&
 				!(tempValue.getBytes()[0] == '-' && tempValue.getBytes()[1] == '0');
 	}
