@@ -13,22 +13,26 @@ public class CalcActivity extends Activity implements OnClickListener{
 	
 	private double result = 0.0;
 	private String tempValue = "";
-	private Operators operator;
+	private Operator operator;
 	
 	TextView tempText;
+	TextView operatorText;
+	TextView resultText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calc);
         CalcButtons.initializeButtons(this);
+        
         tempText = (TextView) findViewById(R.id.tempText);
+        operatorText = (TextView) findViewById(R.id.operatorText);
+        resultText = (TextView) findViewById(R.id.resultText);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.calc, menu);
         return true;
     }
@@ -80,42 +84,39 @@ public class CalcActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.ButtonAdd:
-			calculate(Operators.ADD);
+			calculate(Operator.ADD);
 			break;
 		case R.id.ButtonSub:
-			calculate(Operators.SUBTRACT);
+			calculate(Operator.SUBTRACT);
 			break;
 		case R.id.ButtonMul:
-			calculate(Operators.MULTIPLY);
+			calculate(Operator.MULTIPLY);
 			break;
 		case R.id.ButtonDiv:
-			calculate(Operators.DIVIDE);
+			calculate(Operator.DIVIDE);
 			break;
 		case R.id.ButtonEq:
-			calculate(Operators.EQUATION);
+			calculate(Operator.EQUATION);
 			break;
 		}
 		
 	}
 	
 	private void clear() {
-		result = 0.0;
-		tempValue = "";
-		operator = null;
+		setResult(0.0);
+		tempValue = "0";
+		operator = Operator.DEFAULT;
 		tempText.setText("0");
 	}
 	
-	private void calculate(Operators operator) {
-		if (this.operator == null) {
-			result = Double.parseDouble(tempValue);
-			tempValue = "";
-			tempText.setText("");
+	private void calculate(Operator operator) {
+		if (this.operator == Operator.DEFAULT) {
+			setResult(Double.parseDouble(tempValue));
+			setTempText("0");
 			this.operator = operator;
-		}else if (Operators.EQUATION.equals(operator)) {
+		} else if (Operator.EQUATION.equals(operator)) {
 			makeEquation();
-		} else if (tempText.getText().length() == 0) {
-			this.operator = operator;
-		}else {
+		} else {
 			makeOperation();
 			this.operator = operator;
 		}
@@ -149,14 +150,17 @@ public class CalcActivity extends Activity implements OnClickListener{
 
 	private void makeEquation() {
 		makeOperation();
-		tempValue = String.valueOf(result);
-		tempText.setText(tempValue);
-		result = 0.0;
-		operator = null;
+		setTempText("0");
+		setResult(result);
+		setOperator(Operator.DEFAULT);
 	}
 
 
 	private void addToTempValue(String value) {
+		if (!canInputZeroNumber()) {
+			// There cannot be duplicated 0 on the beggining
+			return;
+		}
 		if (DOT.equals(value) && tempValue.contains(DOT)) {
 			// There cannot be double dots in number
 			return;
@@ -171,5 +175,23 @@ public class CalcActivity extends Activity implements OnClickListener{
 		tempText.setText(tempValue);
 	}
 	
+	private boolean canInputZeroNumber() {
+		return !(tempValue.getBytes()[0] == '0') &&
+				!(tempValue.getBytes()[0] == '-' && tempValue.getBytes()[1] == '0');
+	}
+	
+    private void setResult(double value) {
+    	result = value;
+    	resultText.setText(String.valueOf(value));
+    }
     
+    private void setOperator(Operator operator) {
+    	this.operator = operator;
+    	operatorText.setText(operator == null ? "" : operator.label);
+    }
+    
+    private void setTempText(String value) {
+    	tempValue = value;
+		tempText.setText(value);
+    }
 }

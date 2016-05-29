@@ -44,7 +44,9 @@ public final class R {
         public static final int ButtonNeg=0x7f080012;
         public static final int ButtonPerc=0x7f080011;
         public static final int ButtonSub=0x7f08000d;
-        public static final int action_settings=0x7f080015;
+        public static final int action_settings=0x7f080017;
+        public static final int operatorText=0x7f080016;
+        public static final int resultText=0x7f080015;
         public static final int tempText=0x7f080014;
     }
     public static final class layout {
