@@ -95,10 +95,33 @@ public class CalcActivity extends Activity implements OnClickListener{
 		case R.id.ButtonEq:
 			calculate(Operator.EQUATION);
 			break;
+			
+		case R.id.ButtonBkspc:
+			backspace();
+			break;
+		case R.id.ButtonNeg:
+			tempValue.negate();
+			setTempText(tempValue.getValue());
+			break;
 		}
 		
 	}
 	
+	private void backspace() {
+		// We don't want to delete firstZero
+		String value = tempValue.getValue();
+		if (tempValue.isNegative() && value.length() == 2) {
+			setTempText("-0");
+			return;
+		}
+		if (!tempValue.isNegative() && value.length() == 1) {
+			setTempText("0");
+			return;
+		}
+		setTempText(value.substring(0, value.length()-1));
+	}
+
+
 	private void clear() {
 		setResult(0.0);
 		setTempText("0");
@@ -168,7 +191,7 @@ public class CalcActivity extends Activity implements OnClickListener{
 		
 		// If we have empty string and we will put dot, first must be a 0
 		if (CalcButtons.DOT.equals(sign) && tempValue.isZeroFirst()) {
-			setTempText("0.");
+			setTempText(tempValue.isNegative() ? "-0." : "0.");
 			return;
 		}
 		
@@ -195,6 +218,9 @@ public class CalcActivity extends Activity implements OnClickListener{
     }
     
     private void setOperator(Operator operator) {
+    	if (operator == Operator.EQUATION) {
+    		return;
+    	}
     	this.operator = operator;
     	operatorText.setText(operator == null ? "" : operator.label);
     }

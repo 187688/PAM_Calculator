@@ -4,6 +4,8 @@ public class CalcNumber {
 
 	private String value;
 	
+	private boolean isNegativ = false;
+	
 	public CalcNumber(String value) {
 		this.value = value;
 	}
@@ -23,11 +25,17 @@ public class CalcNumber {
 		return value.getBytes()[0] == '-';
 	}
 	
-	public String getValue() {
-		return this.value;
+	public void negate() {
+		if (!isNegativ) {
+			this.value = "-" + this.value;
+			isNegativ = true;
+		} else {
+			this.value = value.substring(1, value.length());
+			isNegativ = false;
+		}
 	}
 	
-	public void setValue(String value) {
-		this.value = value;
-	}
+	public String getValue() {return this.value;}
+	
+	public void setValue(String value) {this.value = value;}
 }
