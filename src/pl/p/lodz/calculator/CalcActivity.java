@@ -106,7 +106,7 @@ public class CalcActivity extends Activity implements OnClickListener{
 		}
 		
 	}
-	
+
 	private void backspace() {
 		// We don't want to delete firstZero
 		String value = tempValue.getValue();

@@ -36,18 +36,17 @@ public final class R {
         public static final int Button9=0x7f08000c;
         public static final int ButtonAC=0x7f080010;
         public static final int ButtonAdd=0x7f080003;
-        public static final int ButtonBkspc=0x7f080013;
+        public static final int ButtonBkspc=0x7f080012;
         public static final int ButtonDiv=0x7f08000f;
         public static final int ButtonDot=0x7f080000;
         public static final int ButtonEq=0x7f080002;
         public static final int ButtonMul=0x7f08000e;
-        public static final int ButtonNeg=0x7f080012;
-        public static final int ButtonPerc=0x7f080011;
+        public static final int ButtonNeg=0x7f080011;
         public static final int ButtonSub=0x7f08000d;
-        public static final int action_settings=0x7f080017;
-        public static final int operatorText=0x7f080016;
-        public static final int resultText=0x7f080015;
-        public static final int tempText=0x7f080014;
+        public static final int action_settings=0x7f080016;
+        public static final int operatorText=0x7f080015;
+        public static final int resultText=0x7f080014;
+        public static final int tempText=0x7f080013;
     }
     public static final class layout {
         public static final int activity_calc=0x7f030000;

@@ -152,24 +152,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/Button7"
-        android:layout_toLeftOf="@+id/Button8"
+        android:layout_alignRight="@+id/Button8"
+        android:layout_alignLeft="@+id/Button7"
         android:text="@string/btnAC" />
-
-    <Button
-        android:id="@+id/ButtonPerc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ButtonAC"
-        android:layout_alignBottom="@+id/ButtonAC"
-        android:layout_toLeftOf="@+id/Button9"
-        android:text="@string/btnPer" />
 
     <Button
         android:id="@+id/ButtonNeg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ButtonPerc"
-        android:layout_alignBottom="@+id/ButtonPerc"
+        android:layout_alignBaseline="@+id/ButtonAC"
+        android:layout_alignBottom="@+id/ButtonAC"
         android:layout_toLeftOf="@+id/ButtonDiv"
         android:text="@string/btnNeg" />
 
@@ -178,7 +170,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/ButtonNeg"
-        android:layout_alignBottom="@+id/ButtonNeg"
+        android:layout_alignBottom="@+id/ButtonDiv"
         android:layout_alignLeft="@+id/ButtonDiv"
         android:layout_alignRight="@+id/ButtonDiv"
         android:text="@string/btnBkspc" />

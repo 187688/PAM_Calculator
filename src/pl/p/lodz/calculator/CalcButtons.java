@@ -50,7 +50,6 @@ public class CalcButtons {
 		
 		btnDot = (Button) activity.findViewById(R.id.ButtonDot);
 		btnAC = (Button) activity.findViewById(R.id.ButtonAC);
-		btnPerc = (Button) activity.findViewById(R.id.ButtonPerc);
 		btnNeg = (Button) activity.findViewById(R.id.ButtonNeg);
 		btnBkspc = (Button) activity.findViewById(R.id.ButtonBkspc);
 		
