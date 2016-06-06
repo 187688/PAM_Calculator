@@ -7,6 +7,7 @@ public enum Operator {
 	MULTIPLY("x"),
 	DIVIDE("/"),
 	EQUATION("="),
+	EXPONENTIATION("^"),
 	DEFAULT("");
 	
 	String label;

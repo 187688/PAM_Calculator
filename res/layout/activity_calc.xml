@@ -204,5 +204,54 @@
         android:layout_alignParentLeft="true"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <Button
+        android:id="@+id/ButtonLog"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/ButtonLn"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/ButtonInv"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/ButtonExp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/ButtonSqrt"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+       	android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/ButtonPer"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/ButtonCub"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/ButtonSqrd"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:visibility="invisible" />
+    
 
 </RelativeLayout>

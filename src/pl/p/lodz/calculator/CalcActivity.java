@@ -3,6 +3,7 @@ package pl.p.lodz.calculator;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,20 +25,13 @@ public class CalcActivity extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calc);
         CalcButtons.initializeSimplyCalcButtons(this);
+        CalcButtons.initializeExtendedCalcButtons(this);
         
         tempText = (TextView) findViewById(R.id.tempText);
         operatorText = (TextView) findViewById(R.id.operatorText);
         resultText = (TextView) findViewById(R.id.resultText);
     }
     
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-    	super.onConfigurationChanged(newConfig);
-    	if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-    		CalcButtons.initializeExtendedCalcButtons(this);
-    	}
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.calc, menu);
@@ -46,7 +40,11 @@ public class CalcActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		onClickAction(v.getId());
+		try {
+			onClickAction(v.getId());
+		} catch (Throwable e){
+			clear();
+		}
 	}
 
 	private void onClickAction(int id) {
@@ -112,8 +110,88 @@ public class CalcActivity extends Activity implements OnClickListener{
 			tempValue.negate();
 			setTempText(tempValue.getValue());
 			break;
+			
+		// EXTENDED CALC
+		case R.id.ButtonLog:
+			logarithm(10.0);
+			break;
+		case R.id.ButtonLn:
+			logarithm(Math.E);
+			break;
+		case R.id.ButtonPer:
+			percent();
+			break;
+		case R.id.ButtonInv:
+			inverse();
+			break;
+		case R.id.ButtonExp:
+			calculate(Operator.EXPONENTIATION);
+			break;
+		case R.id.ButtonSqrt:
+			sqrt();
+			break;
+		case R.id.ButtonSqrd:
+			power(2);
+			break;
+		case R.id.ButtonCub:
+			power(3);
+			break;
+		}
+	}
+
+	private void power(int i) {
+		double val = Double.parseDouble(tempValue.getValue());
+		setTempText(String.valueOf(Math.pow(val, i)));
+		setOperator(Operator.DEFAULT);
+	}
+
+	private void sqrt() {
+		double val = Double.parseDouble(tempValue.getValue());
+		if (val <= 0.0) {
+			Toast.makeText(this, "Wrong argument!", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		setTempText(String.valueOf(Math.sqrt(val)));
+		setOperator(Operator.DEFAULT);
+	}
+
+	private void inverse() {
+		double val = Double.parseDouble(tempValue.getValue());
+		if (val == 0.0) {
+			Toast.makeText(this, "Wrong argument!", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		setTempText(String.valueOf(1/val));
+		setOperator(Operator.DEFAULT);
+	}
+
+	private void percent() {
+		double val = Double.parseDouble(tempValue.getValue());
+		val *= 100;
+		setResult(val);
+		String resultTempText = resultText.getText().toString();
+		resultTempText += " %";
+		resultText.setText(resultTempText);
+		
+		setOperator(Operator.DEFAULT);
+		setTempText("0");
+	}
+
+	private void logarithm(double base) {
+		double val = Double.parseDouble(tempValue.getValue());
+		if (val <= 0) {
+			Toast.makeText(this, "Wrong argument!", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		if (base == 10.0) {
+			setTempText(String.valueOf(Math.log10(val)));
+		} else if (base == Math.E) {
+			setTempText(String.valueOf(Math.log(val)));
+		} else {
+			Toast.makeText(this, "What the fuck!", Toast.LENGTH_SHORT).show();
 		}
 		
+		setOperator(Operator.DEFAULT);
 	}
 
 	private void backspace() {
@@ -134,6 +212,7 @@ public class CalcActivity extends Activity implements OnClickListener{
 	private void clear() {
 		setResult(0.0);
 		setTempText("0");
+		tempValue.clearTempValue();
 		setOperator(Operator.DEFAULT);
 	}
 	
@@ -169,27 +248,30 @@ public class CalcActivity extends Activity implements OnClickListener{
 		case DIVIDE:
 			double val = Double.parseDouble(tempValue.getValue());
 			if (val == 0.0) { 
-				Toast.makeText(this, "Nie dziel przez 0!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Cannot divide by zero!", Toast.LENGTH_SHORT).show();
 				break;
 			} 
 			result /= val;
+			break;
+		case EXPONENTIATION:
+			result = Math.pow(result, Double.parseDouble(tempValue.getValue()));
 			break;
 		default:
 			break;
 		}
 	}
 
-
 	private void makeEquation() {
 		makeOperation();
 		setTempText("0");
+		tempValue.clearTempValue();
 		setResult(result);
 		setOperator(Operator.DEFAULT);
 	}
 
 	private void addToTempValue(String sign) {
 		// There cannot be duplicated 0 on the beggining
-		if (tempValue.isZeroFirst() && "0".equals(sign)) {
+		if (tempValue.isZeroFirst() && "0".equals(sign) && !tempValue.getValue().contains(CalcButtons.DOT)) {
 			return;
 		}
 
@@ -205,10 +287,10 @@ public class CalcActivity extends Activity implements OnClickListener{
 		}
 		
 		// If we have 0 on the beggining and try to append number
-		if (tempValue.isZeroFirst() && tempValue.isNegative()) {
+		if (tempValue.isZeroFirst() && tempValue.isNegative() && !tempValue.getValue().contains(CalcButtons.DOT)) {
 			setTempText("-" + sign);
 			return;
-		} else if (tempValue.isZeroFirst() && !tempValue.isNegative()) {
+		} else if (tempValue.isZeroFirst() && !tempValue.isNegative() && !tempValue.getValue().contains(CalcButtons.DOT)) {
 			setTempText(sign);
 			return;
 		}

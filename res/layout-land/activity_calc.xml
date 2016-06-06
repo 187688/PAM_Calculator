@@ -219,7 +219,6 @@
         android:layout_height="40dp"
         android:layout_above="@+id/ButtonLn"
         android:layout_alignRight="@+id/ButtonLn"
-        android:layout_toRightOf="@+id/operatorText"
         android:text="@string/btnInv" />
 
     <Button
