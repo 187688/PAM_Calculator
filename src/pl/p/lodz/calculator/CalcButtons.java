@@ -26,11 +26,19 @@ public class CalcButtons {
 	
 	public static Button btnDot; 
 	public static Button btnAC;
-	public static Button btnPerc;
 	public static Button btnNeg; 
 	public static Button btnBkspc;
 	
-	public static void initializeButtons(CalcActivity activity) {
+	public static Button btnLog;
+	public static Button btnLn;
+	public static Button btnInv;
+	public static Button btnSqrt;
+	public static Button btnPer;
+	public static Button btnCub;
+	public static Button btnSqrd;
+	public static Button btnExp;
+	
+	public static void initializeSimplyCalcButtons(CalcActivity activity) {
 		btn1 = (Button) activity.findViewById(R.id.Button1);
 		btn2 = (Button) activity.findViewById(R.id.Button2);
 		btn3 = (Button) activity.findViewById(R.id.Button3);
@@ -53,10 +61,23 @@ public class CalcButtons {
 		btnNeg = (Button) activity.findViewById(R.id.ButtonNeg);
 		btnBkspc = (Button) activity.findViewById(R.id.ButtonBkspc);
 		
-		setOnClickListener(activity);
+		setOnClickSimplyCalcListener(activity);
 	}
 	
-	private static void setOnClickListener(OnClickListener listener) {
+	public static void initializeExtendedCalcButtons(CalcActivity activity) {
+		btnLog = (Button) activity.findViewById(R.id.ButtonLog);
+		btnLn = (Button) activity.findViewById(R.id.ButtonLn);
+		btnInv = (Button) activity.findViewById(R.id.ButtonInv);
+		btnSqrt = (Button) activity.findViewById(R.id.ButtonSqrt);
+		btnPer = (Button) activity.findViewById(R.id.ButtonPer);
+		btnCub = (Button) activity.findViewById(R.id.ButtonCub);
+		btnSqrd = (Button) activity.findViewById(R.id.ButtonSqrd);
+		btnExp = (Button) activity.findViewById(R.id.ButtonExp);
+		
+		setOnClickExtendedCalcListener(activity);
+	}
+
+	private static void setOnClickSimplyCalcListener(OnClickListener listener) {
 		btn1.setOnClickListener(listener);
 		btn2.setOnClickListener(listener);
 		btn3.setOnClickListener(listener);
@@ -76,9 +97,18 @@ public class CalcButtons {
 		
 		btnDot.setOnClickListener(listener);
 		btnAC.setOnClickListener(listener);
-		btnPerc.setOnClickListener(listener);
 		btnNeg.setOnClickListener(listener);
 		btnBkspc.setOnClickListener(listener);
 	}
 	
+	private static void setOnClickExtendedCalcListener(CalcActivity listener) {
+		btnLog.setOnClickListener(listener);
+		btnLn.setOnClickListener(listener);
+		btnInv.setOnClickListener(listener);
+		btnSqrt.setOnClickListener(listener);
+		btnPer.setOnClickListener(listener);
+		btnCub.setOnClickListener(listener);
+		btnSqrd.setOnClickListener(listener);
+		btnExp.setOnClickListener(listener);
+	}
 }

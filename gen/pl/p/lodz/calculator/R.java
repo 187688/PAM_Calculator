@@ -37,13 +37,21 @@ public final class R {
         public static final int ButtonAC=0x7f080010;
         public static final int ButtonAdd=0x7f080003;
         public static final int ButtonBkspc=0x7f080012;
+        public static final int ButtonCub=0x7f08001d;
         public static final int ButtonDiv=0x7f08000f;
         public static final int ButtonDot=0x7f080000;
         public static final int ButtonEq=0x7f080002;
+        public static final int ButtonExp=0x7f080016;
+        public static final int ButtonInv=0x7f08001b;
+        public static final int ButtonLn=0x7f08001a;
+        public static final int ButtonLog=0x7f080018;
         public static final int ButtonMul=0x7f08000e;
         public static final int ButtonNeg=0x7f080011;
+        public static final int ButtonPer=0x7f08001c;
+        public static final int ButtonSqrd=0x7f080019;
+        public static final int ButtonSqrt=0x7f080017;
         public static final int ButtonSub=0x7f08000d;
-        public static final int action_settings=0x7f080016;
+        public static final int action_settings=0x7f08001e;
         public static final int operatorText=0x7f080015;
         public static final int resultText=0x7f080014;
         public static final int tempText=0x7f080013;
@@ -69,16 +77,24 @@ public final class R {
         public static final int btn9=0x7f05000b;
         public static final int btnAC=0x7f050013;
         public static final int btnAdd=0x7f05000e;
-        public static final int btnBkspc=0x7f050016;
+        public static final int btnBkspc=0x7f050014;
+        public static final int btnCub=0x7f050018;
         public static final int btnDiv=0x7f050011;
         public static final int btnDot=0x7f050012;
         public static final int btnEq=0x7f05000d;
+        public static final int btnExp=0x7f05001e;
+        public static final int btnInv=0x7f05001d;
+        public static final int btnLn=0x7f050019;
+        public static final int btnLog=0x7f05001a;
         public static final int btnMul=0x7f050010;
-        public static final int btnNeg=0x7f050017;
-        public static final int btnPer=0x7f050014;
-        public static final int btnSqrt=0x7f050015;
+        public static final int btnNeg=0x7f050015;
+        public static final int btnPer=0x7f05001c;
+        /**  EXTENDED CALC 
+         */
+        public static final int btnSqrd=0x7f050017;
+        public static final int btnSqrt=0x7f05001b;
         public static final int btnSub=0x7f05000f;
-        public static final int empty=0x7f050018;
+        public static final int empty=0x7f050016;
         public static final int hello_world=0x7f050002;
     }
     public static final class style {

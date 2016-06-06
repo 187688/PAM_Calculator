@@ -23,10 +23,19 @@
     
     <string name="btnDot">.</string>
     <string name="btnAC">AC</string>
-    <string name="btnPer">%</string>
-    <string name="btnSqrt">sqrt</string>
-    <string name="btnBkspc">Bkspc</string>
+    <string name="btnBkspc">Bksp</string>
     <string name="btnNeg">+/-</string>
 
     <string name="empty">0</string>
+    
+    <!-- EXTENDED CALC -->
+    
+    <string name="btnSqrd">^2</string>
+    <string name="btnCub">^3</string>
+    <string name="btnLn">ln</string>
+    <string name="btnLog">log</string>
+    <string name="btnSqrt">sqrt</string>
+    <string name="btnPer">%</string>
+    <string name="btnInv">1/x</string>
+    <string name="btnExp">^x</string>
 </resources>

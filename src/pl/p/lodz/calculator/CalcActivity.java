@@ -1,11 +1,13 @@
 package pl.p.lodz.calculator;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CalcActivity extends Activity implements OnClickListener{
 	
@@ -13,21 +15,28 @@ public class CalcActivity extends Activity implements OnClickListener{
 	private CalcNumber tempValue = new CalcNumber("0");
 	private Operator operator = Operator.DEFAULT;
 	
-	TextView tempText;
-	TextView operatorText;
-	TextView resultText;
+	private TextView tempText;
+	private TextView operatorText;
+	private TextView resultText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calc);
-        CalcButtons.initializeButtons(this);
+        CalcButtons.initializeSimplyCalcButtons(this);
         
         tempText = (TextView) findViewById(R.id.tempText);
         operatorText = (TextView) findViewById(R.id.operatorText);
         resultText = (TextView) findViewById(R.id.resultText);
     }
-
+    
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+    	super.onConfigurationChanged(newConfig);
+    	if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+    		CalcButtons.initializeExtendedCalcButtons(this);
+    	}
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -160,7 +169,7 @@ public class CalcActivity extends Activity implements OnClickListener{
 		case DIVIDE:
 			double val = Double.parseDouble(tempValue.getValue());
 			if (val == 0.0) { 
-				//TODO: Add alert
+				Toast.makeText(this, "Nie dziel przez 0!", Toast.LENGTH_SHORT).show();
 				break;
 			} 
 			result /= val;
